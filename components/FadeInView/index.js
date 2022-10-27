@@ -17,7 +17,7 @@ const FadeInView = props => {
         opacity: fadeAnim, // Bind opacity to animated value
         position: 'absolute',
         alignItems: 'center',
-        top: '10%',
+        top: '-10%',
         marginHorizontal: '20%',
       }}>
       {props.children}

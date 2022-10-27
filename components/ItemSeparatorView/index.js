@@ -4,10 +4,10 @@ const ItemSeparatorView = () => {
   return (
     <View
       style={{
-        height: 1,
+        height: 0.5,
         width: '100%',
-        backgroundColor: 'blue',
-        top: 80,
+        backgroundColor: 'gray',
+        top: '23%',
       }}
     />
   );

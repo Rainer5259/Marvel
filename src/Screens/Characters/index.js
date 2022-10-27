@@ -3,6 +3,8 @@ import {View, Alert, ActivityIndicator} from 'react-native';
 import api from '../../../services/api';
 import ListOfCharacters from '../../../components/ListOfCharacters';
 import {TS, KEYS, HASH} from '../../../services/validation';
+import LoadingData from '../../../components/LoadingData';
+
 function CharactersScreen() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -21,6 +23,14 @@ function CharactersScreen() {
   useEffect(() => {
     loadCharacters();
   }, []);
+
+  // const addItemHandler = () => {
+  //   let showAllDescription = {state: false};
+  //   let newData = data;
+  //   console.log(newData);
+  //   setData(newData);
+  // };
+  // addItemHandler();
 
   return loading ? (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>

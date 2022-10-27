@@ -1,18 +1,19 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
+import Colors from '../../assets/Colors';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fa2a2a',
+    backgroundColor: Colors.colors.default,
     borderRightWidth: 5,
-    borderColor: 'blue',
     borderLeftWidth: 5,
+    borderColor: 'skyblue',
   },
   header: {
     alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    left: '1%',
   },
   content: {
     top: 20,
@@ -21,27 +22,36 @@ const styles = StyleSheet.create({
   },
   horizontalBar: {
     alignItems: 'center',
-    borderBottomWidth: 1,
-    borderColor: 'blue',
+    borderBottomWidth: 0.3,
+    borderColor: 'gray',
     top: 25,
     marginBottom: 25,
   },
   title: {
-    top: 15,
-    fontWeight: 'bold',
-    fontSize: 24,
     textAlign: 'center',
   },
   img: {
     top: 5,
     height: 300,
     resizeMode: 'stretch',
-    borderRadius: 5,
+    borderRadius: 10,
     marginBottom: '10%',
+    shadowOpacity: 10,
   },
-  names: {
-    fontWeight: 'bold',
-    fontSize: 16,
+  description: {
+    bottom: '5%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: '0%',
+    backgroundColor: 'yellow',
+    borderRadius: 15,
+    paddingHorizontal: '5%',
+  },
+  showMore: {
+    width: 20,
+    height: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 export default styles;
