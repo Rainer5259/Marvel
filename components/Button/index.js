@@ -8,24 +8,19 @@ import Animated, {
 } from 'react-native-reanimated';
 
 const Button = ({
-  backgroundColor,
-  width,
-  height,
-  alignItems,
-  justifyContent,
-  top,
-  bottom,
-  borderRadius,
+  children,
+  styles,
+  position,
+  duration,
+  onPress,
   iconName,
   iconSize,
-  onPress,
-  isAnimated,
+  isAnimated = false,
 }) => {
-  isAnimated = false;
-  const titlePosition = useSharedValue(250);
+  const titlePosition = useSharedValue(position);
 
   useEffect(() => {
-    titlePosition.value = withTiming(0, {duration: 1000});
+    titlePosition.value = withTiming(0, duration);
   }, []);
 
   const titleStyle = useAnimatedStyle(() => {
@@ -35,35 +30,13 @@ const Button = ({
   });
   return !isAnimated ? (
     <Animated.View style={titleStyle}>
-      <TouchableOpacity
-        style={{
-          backgroundColor: backgroundColor,
-          width: width,
-          height: height,
-          alignItems: alignItems,
-          justifyContent: justifyContent,
-          top: top,
-          bottom: bottom,
-          borderRadius: borderRadius,
-        }}
-        onPress={() => onPress}>
+      <TouchableOpacity style={styles} onPress={() => onPress}>
         <Icon name={iconName} size={iconSize} />
       </TouchableOpacity>
     </Animated.View>
   ) : (
-    <TouchableOpacity
-      style={{
-        backgroundColor: backgroundColor,
-        width: width,
-        height: height,
-        alignItems: alignItems,
-        justifyContent: justifyContent,
-        top: top,
-        bottom: bottom,
-        borderRadius: borderRadius,
-      }}
-      onPress={() => onPress}>
-      <Icon name={iconName} size={iconSize} />
+    <TouchableOpacity style={styles} onPress={() => onPress}>
+      {children}
     </TouchableOpacity>
   );
 };

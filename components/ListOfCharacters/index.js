@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useMemo, useCallback} from 'react';
 import {
   View,
   SafeAreaView,
@@ -7,26 +7,26 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import styles from './styles';
 import ItemSeparatorView from '../ItemSeparatorView';
 import {SearchBar} from 'react-native-elements';
 import Colors from '../../assets/Colors';
+import AnimatedView from '../Animated';
+import Rotate from '../Animated/Rotate';
+import {memo} from 'react';
+import AnimatedText from '../Animated/Text';
 import Button from '../Button';
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withTiming,
-} from 'react-native-reanimated';
-
+import ArrowButton from '../Animated/ArrowButton';
+import Home from '../../src/Screens/Home';
 const ListOfCharacters = ({data}) => {
+  const navigation = useNavigation();
   const [filteredData, setFilteredData] = useState(data);
-  const [showMore, setShowMore] = useState(false);
+  const [showMore, setShowMore] = useState(true);
   const [search, setSearch] = useState('');
-  useEffect(() => {
-    console.log(search);
-  }, [filteredData]);
 
+  const goBack = () => navigation.navigate('Home');
   const updateSearch = text => {
     if (text) {
       const newData = data.filter(item => {
@@ -41,45 +41,30 @@ const ListOfCharacters = ({data}) => {
       setSearch(text);
     }
   };
-  const Description = props => {
-    const ShowMoreOrLessIcon = () => {
-      return !showMore ? <Icon name="plus" /> : <Icon name="minus" />;
-    };
 
-    const ButtonShowMoreDetails = ({onPressed}) => {
-      return (
-        props.children != '' && (
-          <TouchableOpacity
-            style={styles.showMore}
-            onPress={() => setShowMore(onPressed)}>
-            <ShowMoreOrLessIcon />
-          </TouchableOpacity>
-        )
-      );
-    };
+  const Description = ({info}) => {
+    let description = info.item.hide
+      ? info.item.description.substring(0, 40)
+      : info.item.description;
 
-    const ShowAllDescription = () => {
-      return !showMore ? (
-        <View style={styles.description}>
-          <Text>{props.children.substring(0, 40)}</Text>
-          <ButtonShowMoreDetails onPressed={true} />
-        </View>
-      ) : (
-        <View style={styles.description}>
-          <Text>{props.children}</Text>
-          <ButtonShowMoreDetails onPressed={false} />
-        </View>
-      );
+    const ButtonShowMoreDetails = () => {
+      return <Rotate styles={styles.showMore} boolean={info.item.hide} />;
     };
 
     return (
-      !props.children == '' && (
-        <ShowAllDescription>{props.children}</ShowAllDescription>
+      !info.item.description == '' && (
+        <View style={styles.description}>
+          <Text style={[{marginRight: '8%'}, Colors.description]}>
+            {description}
+          </Text>
+
+          <ButtonShowMoreDetails hide={info.item.hide} />
+        </View>
       )
     );
   };
 
-  const Items = ({info}) => {
+  const Items = memo(({info}) => {
     const img = {
       path: info.item.thumbnail.path,
       extension: info.item.thumbnail.extension,
@@ -88,45 +73,47 @@ const ListOfCharacters = ({data}) => {
 
     return (
       <View style={styles.content}>
-        <Text style={Colors.primaryText}>{info.item.name}</Text>
+        <AnimatedText
+          styles={Colors.primaryText}
+          position={-250}
+          duration={350}>
+          {info.item.name}
+        </AnimatedText>
+        <AnimatedView position={950} duration={500}>
+          <Image
+            source={{
+              uri: thumbnail,
+            }}
+            style={styles.img}
+          />
+        </AnimatedView>
 
-        <Image
-          source={{
-            uri: thumbnail,
-          }}
-          style={styles.img}
-        />
-
-        <Description>{info.item.description}</Description>
+        <Description info={info} />
       </View>
     );
-  };
+  });
+
   return (
     <View style={styles.container}>
       <SafeAreaView style={{flex: 1}}>
-        <View style={styles.header}>
-          <Button
-            width={50}
-            height={50}
-            iconName={'arrow-left'}
-            iconSize={25}
-            alignItems={'center'}
-            justifyContent={'center'}
-            isAnimated={true}
-          />
-          <SearchBar
-            placeholder="Search Characters"
-            value={search}
-            onChangeText={updateSearch}
-            containerStyle={{
-              width: '80%',
-              height: '100%',
-              borderRadius: 25,
-              backgroundColor: '#f5f5f5',
-            }}
-            platform={'ios'}
-          />
-        </View>
+        <AnimatedView position={450} duration={3000}>
+          <View style={styles.header}>
+            <ArrowButton
+              arrowDirection="left"
+              size={36}
+              slideToValue={270}
+              showBreathingAnim={false}
+              Pressed={goBack}
+            />
+            <SearchBar
+              placeholder="Search Characters"
+              value={search}
+              onChangeText={updateSearch}
+              containerStyle={styles.searchBar}
+              platform={'ios'}
+            />
+          </View>
+        </AnimatedView>
         <Text style={[styles.title, Colors.title]}>Characters</Text>
 
         <View style={styles.horizontalBar} />

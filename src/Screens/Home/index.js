@@ -1,22 +1,42 @@
-import React, {useState, useEffect, useRef} from 'react';
-import {View, Animated, Image, Text} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text} from 'react-native';
 import styles from './styles';
-import FadeInView from '../../../components/FadeInView';
 import IntroductoryPhrase from '../../../components/IntroductoryPhrase';
 import Logo from '../../../components/Logo';
-
-import IntroButtonGoToCharctersList from '../../../components/IntroButtonGoToCharctersList';
-import LoadingData from '../../../components/LoadingData';
+import firebase from '../../../src/Firebase';
+import ArrowButton from '../../../components/Animated/ArrowButton';
+import {useNavigation} from '@react-navigation/native';
+console.disableYellowBox = true;
 
 const Home = () => {
+  const [name, setName] = useState(null);
+  const goToCharactersList = () => useNavigation().navigate('ListOfCharacters');
+  useEffect(() => {
+    async function createUser() {
+      await firebase
+        .database()
+        .ref('users/1/users')
+        .set('Rainer Cordeiro')
+        .then(value => {
+          setName(value);
+        });
+    }
+    createUser();
+  }, []);
   return (
     <View style={styles.container}>
       <Logo color="red" height="256" width="256" />
-
       <IntroductoryPhrase />
-
-      <IntroButtonGoToCharctersList />
-      {/* <LoadingData /> */}
+      <Text>{name}</Text>
+      <ArrowButton
+        arrowDirection={'right'}
+        size={48}
+        timeOut={1700}
+        slideToValue={270}
+        showBreathingAnim={true}
+        styles={{marginTop: '34%'}}
+        Pressed={goToCharactersList}
+      />
     </View>
   );
 };

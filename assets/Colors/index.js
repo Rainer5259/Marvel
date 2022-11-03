@@ -10,6 +10,10 @@ const Colors = {
     fontSize: 18,
     fontWeight: 'bold',
   },
+  description: {
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
 };
 
 export default Colors;

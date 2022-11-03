@@ -23,7 +23,6 @@ const LoadingData = () => {
   // setInterval(() => {
   //   timerToChangeIcon();
   // }, 3000);
-  console.log(icon);
   return (
     <Svg fill="#000000" viewBox="0 0 48 48" width="48px" height="48px">
       <Path d={icon} />

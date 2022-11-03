@@ -9,7 +9,7 @@ const Logo = () => {
       Animated.timing(fadeAnim, {
         toValue: 25,
         duration: 10000,
-        useNativeDriver: true,
+        useNativeDriver: false,
       }).start();
     }, [fadeAnim]);
 

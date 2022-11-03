@@ -1,69 +1,67 @@
-import {useNavigation} from '@react-navigation/native';
 import React, {useState, useEffect, useRef} from 'react';
-import {TouchableOpacity, Image, Animated} from 'react-native';
-import {
-  useSharedValue,
-  useAnimatedStyle,
-  withTiming,
-} from 'react-native-reanimated';
+import {TouchableOpacity, Image, Animated, View} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+
 const IntroButtonGoToCharctersList = () => {
-  const Animations = props => {
-    const fadeAnim = useRef(new Animated.Value(0)).current;
-    const titlePosition = useSharedValue(250);
+  const [icon, setIcon] = useState(32);
+  const ArrowAnimatedIcon = Animated.createAnimatedComponent(Icon);
+  const arrowSize = useRef(new Animated.Value(32)).current;
+  const opacity = useRef(new Animated.Value(0)).current;
+  const breathingAnimation = useRef(new Animated.Value(0)).current;
+  const translateXAnimated = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    Animated.timing(opacity, {
+      toValue: 25,
+      duration: 300,
+      useNativeDriver: false,
+    }).start;
+    const startBreathingAnimation = () => {
+      setTimeout(() => {
+        Animated.loop(
+          Animated.sequence([
+            Animated.timing(arrowSize, {
+              toValue: 48,
+              duration: 2000,
+              useNativeDriver: false,
+            }),
+            Animated.timing(arrowSize, {
+              toValue: 32,
+              duration: 2000,
+              useNativeDriver: false,
+            }),
+          ]),
+        ).start();
+      }, 1500);
+    };
+    startBreathingAnimation();
+  }, []);
+  const slideIcon = () => {
+    arrowSize.stopAnimation();
 
-    useEffect(() => {
-      setTimeout(
-        () =>
-          Animated.timing(fadeAnim, {
-            toValue: 2,
-            duration: 4000,
-            useNativeDriver: true,
-          }).start(),
-        3000,
-      );
-      // setTimeout(() => {
-      //   titlePosition.value = withTiming(0, {duration: 1000});
-      // }, 2000);
-    }, [fadeAnim]);
-
-    const titleStyle = useAnimatedStyle(() => {
-      return {
-        transform: [{translateX: titlePosition.value}],
-      };
-    });
-
-    return (
-      <Animated.View // Special animatable View
-        style={{
-          opacity: fadeAnim, // Bind opacity to animated value
-          top: '10%',
-          marginHorizontal: '20%',
-        }}>
-        {props.children}
-      </Animated.View>
-    );
+    Animated.timing(translateXAnimated, {
+      toValue: 350,
+      duration: 10000,
+      useNativeDriver: false,
+    }).start();
   };
 
-  const navigation = useNavigation();
   return (
-    <Animations>
+    <Animated.View
+      style={{
+        top: '10%',
+        transform: [{translateX: translateXAnimated}],
+      }}>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate('ListOfCharacters');
+          breathingAnimation.setValue(220), slideIcon();
         }}>
-        <Image
-          style={{
-            width: 65,
-            height: 125,
-            resizeMode: 'stretch',
-            alignItems: 'center',
-            justifyContent: 'center',
-            bottom: '10%',
-          }}
-          source={require('../../assets/img/flash-static.png')}
+        <ArrowAnimatedIcon
+          name="arrow-right"
+          size={arrowSize}
+          style={{backgroundColor: 'yellow', opacity: 1}}
         />
       </TouchableOpacity>
-    </Animations>
+    </Animated.View>
   );
 };
 
