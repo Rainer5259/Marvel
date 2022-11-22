@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useMemo, useCallback} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   View,
   SafeAreaView,
@@ -15,12 +15,15 @@ import {SearchBar} from 'react-native-elements';
 import Colors from '../../assets/Colors';
 import AnimatedView from '../Animated';
 import Rotate from '../Animated/Rotate';
-import {memo} from 'react';
 import AnimatedText from '../Animated/Text';
 import Button from '../Button';
 import ArrowButton from '../Animated/ArrowButton';
 import Home from '../../src/Screens/Home';
-const ListOfCharacters = ({data}) => {
+import {useContext} from 'react';
+import {CharactersContext} from '../../services/contexts/characters';
+
+const ListOfCharacters = () => {
+  const {loadingStatus, data} = useContext(CharactersContext);
   const navigation = useNavigation();
   const [filteredData, setFilteredData] = useState(data);
   const [showMore, setShowMore] = useState(true);
@@ -64,7 +67,7 @@ const ListOfCharacters = ({data}) => {
     );
   };
 
-  const Items = memo(({info}) => {
+  const Items = ({info}) => {
     const img = {
       path: info.item.thumbnail.path,
       extension: info.item.thumbnail.extension,
@@ -91,7 +94,7 @@ const ListOfCharacters = ({data}) => {
         <Description info={info} />
       </View>
     );
-  });
+  };
 
   return (
     <View style={styles.container}>

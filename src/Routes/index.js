@@ -4,23 +4,26 @@ import React from 'react';
 import CharactersScreen from '../Screens/Characters';
 import Home from '../Screens/Home';
 
-const Stack = createNativeStackNavigator();
+import CharactersProvider from '../../services/contexts/characters';
 
+const Stack = createNativeStackNavigator();
 const Routes = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="ListOfCharacters">
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="ListOfCharacters"
-          component={CharactersScreen}
-          options={{headerShown: false}}
-        />
-      </Stack.Navigator>
+      <CharactersProvider>
+        <Stack.Navigator initialRouteName="ListOfCharacters">
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="ListOfCharacters"
+            component={CharactersScreen}
+            options={{headerShown: false}}
+          />
+        </Stack.Navigator>
+      </CharactersProvider>
     </NavigationContainer>
   );
 };
