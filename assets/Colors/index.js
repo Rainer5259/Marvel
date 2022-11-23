@@ -10,12 +10,13 @@ const Colors = {
   },
   primaryText: {
     fontFamily: 'Poppins',
-    fontSize: 18,
+    fontSize: 22,
     fontWeight: 'bold',
   },
   description: {
     fontSize: 14,
     fontWeight: 'bold',
+    fontFamily: 'Poppins',
   },
 };
 

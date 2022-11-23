@@ -24,13 +24,15 @@ const styles = StyleSheet.create({
   beAHero: {left: '26%'},
   signInContainer: {
     marginHorizontal: '15%',
-    height: '45%',
+    height: '6%',
     backgroundColor: '#D9D9D9',
     borderRadius: 30,
     fontSize: 16,
+    margin: '1%',
     paddingLeft: '4%',
   },
-  button: {
+
+  joinButton: {
     left: '40%',
     top: '2%',
     width: '20%',
