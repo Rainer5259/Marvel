@@ -7,7 +7,12 @@ export const CharactersContext = createContext({});
 function CharactersProvider({children}) {
   const [data, setData] = useState([]);
   const [loadingStatus, setLoadingStatus] = useState(true);
-
+  const [isHidden, setIsHidden] = useState(true);
+  const info = {data, setData};
+  const set = {
+    //setData,
+    setIsHidden,
+  };
   async function loadCharacters() {
     const characters = `/characters?ts=${TS}&apikey=${KEYS.PUBLIC}&hash=${HASH}`;
     try {
@@ -26,8 +31,12 @@ function CharactersProvider({children}) {
   useEffect(() => {
     loadCharacters();
   }, []);
+
+  // useEffect(() => {
+  //   console.log(isHidden);
+  // }, [isHidden]);
   return (
-    <CharactersContext.Provider value={{data, loadingStatus}}>
+    <CharactersContext.Provider value={{info, set, isHidden, loadingStatus}}>
       {children}
     </CharactersContext.Provider>
   );

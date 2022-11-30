@@ -6,7 +6,6 @@ import Logo from '../../../components/Logo';
 import firebase from '../../../src/Firebase';
 import ArrowButton from '../../../components/Animated/ArrowButton';
 import {useNavigation} from '@react-navigation/native';
-console.disableYellowBox = true;
 
 const Home = () => {
   const [name, setName] = useState(null);

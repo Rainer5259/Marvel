@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import styles from './styles';
 import ItemSeparatorView from '../ItemSeparatorView';
 import {SearchBar} from 'react-native-elements';
@@ -16,16 +15,15 @@ import Colors from '../../assets/Colors';
 import AnimatedView from '../Animated';
 import Rotate from '../Animated/Rotate';
 import AnimatedText from '../Animated/Text';
-import Button from '../Button';
 import ArrowButton from '../Animated/ArrowButton';
-import Home from '../../src/Screens/Home';
 import {useContext} from 'react';
 import {CharactersContext} from '../../services/contexts/characters';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const ListOfCharacters = () => {
-  const {loadingStatus, data} = useContext(CharactersContext);
+  const {loadingStatus, info} = useContext(CharactersContext);
   const navigation = useNavigation();
-  const [filteredData, setFilteredData] = useState(data);
+  const [filteredData, setFilteredData] = useState(info.data);
   const [showMore, setShowMore] = useState(true);
   const [search, setSearch] = useState('');
 
@@ -51,7 +49,7 @@ const ListOfCharacters = () => {
       : info.item.description;
 
     const ButtonShowMoreDetails = () => {
-      return <Rotate styles={styles.showMore} boolean={info.item.hide} />;
+      return <Rotate index={info.index} rotation={info.item.hide ? 0 : 180} />;
     };
 
     return (
@@ -61,7 +59,7 @@ const ListOfCharacters = () => {
             {description}
           </Text>
 
-          <ButtonShowMoreDetails hide={info.item.hide} />
+          <ButtonShowMoreDetails />
         </View>
       )
     );
@@ -122,7 +120,7 @@ const ListOfCharacters = () => {
         <View style={styles.horizontalBar} />
 
         <FlatList
-          data={filteredData}
+          data={info.data}
           key={item => item.id}
           keyExtractor={item => item.id}
           renderItem={item => <Items info={item} />}

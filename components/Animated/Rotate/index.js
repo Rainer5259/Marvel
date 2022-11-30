@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Animated, {
@@ -6,24 +6,26 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
 } from 'react-native-reanimated';
+import {CharactersContext} from '../../../services/contexts/characters';
 
-const Rotate = ({onPress, styles, boolean = true}) => {
-  const [state, setState] = useState(boolean);
-  const [range, setRange] = useState(0);
-
-  const rotateCurrentValue = useSharedValue(range);
-
+const Rotate = ({index}) => {
   const OpacityButton = Animated.createAnimatedComponent(TouchableOpacity);
   const ArrowIcon = Animated.createAnimatedComponent(Icon);
+  const {info, set, isHidden} = useContext(CharactersContext);
+  const [range, setRange] = useState(0);
+  const rotateCurrentValue = useSharedValue(range);
 
-  useEffect(() => {});
   const startRotateArrowButton = () => {
-    state
-      ? (setRange(180), setState((boolean = false)))
-      : (setRange(0), setState((boolean = true)));
-    return (rotateCurrentValue.value = withTiming(range, {
-      duration: 100,
-    }));
+    console.log(index, isHidden, info.data[index].hide);
+
+    return (
+      !isHidden
+        ? (set.setIsHidden((info.data[index].hide = true)), setRange(0))
+        : (set.setIsHidden((info.data[index].hide = false)), setRange(180)),
+      (rotateCurrentValue.value = withTiming(range, {
+        duration: 100,
+      }))
+    );
   };
 
   const rotate = useAnimatedStyle(() => {
@@ -37,10 +39,9 @@ const Rotate = ({onPress, styles, boolean = true}) => {
   });
 
   return (
-    <OpacityButton onPress={() => startRotateArrowButton()}>
-      <ArrowIcon name="arrow-up" style={[styles, rotate]} />
+    <OpacityButton onPress={startRotateArrowButton}>
+      <ArrowIcon name="arrow-up" style={[rotate]} />
     </OpacityButton>
   );
 };
 export default Rotate;
-//47

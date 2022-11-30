@@ -12,7 +12,7 @@ const Routes = () => {
   return (
     <NavigationContainer>
       <CharactersProvider>
-        <Stack.Navigator initialRouteName="Login">
+        <Stack.Navigator initialRouteName="Characters">
           <Stack.Screen
             name="Login"
             component={Login}
@@ -24,7 +24,7 @@ const Routes = () => {
             options={{headerShown: false}}
           />
           <Stack.Screen
-            name="ListOfCharacters"
+            name="Characters"
             component={CharactersScreen}
             options={{headerShown: false}}
           />

@@ -22,6 +22,9 @@ const styles = StyleSheet.create({
   },
   and: {left: '42%', top: '12%'},
   beAHero: {left: '26%'},
+  keyboardView: {
+    flex: 1,
+  },
   signInContainer: {
     marginHorizontal: '15%',
     height: '6%',
