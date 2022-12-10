@@ -32,9 +32,6 @@ function CharactersProvider({children}) {
     loadCharacters();
   }, []);
 
-  // useEffect(() => {
-  //   console.log(isHidden);
-  // }, [isHidden]);
   return (
     <CharactersContext.Provider value={{info, set, isHidden, loadingStatus}}>
       {children}

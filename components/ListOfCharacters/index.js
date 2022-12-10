@@ -44,12 +44,13 @@ const ListOfCharacters = () => {
   };
 
   const Description = ({info}) => {
+    let range = info.item.hide ? 0 : 180;
     let description = info.item.hide
       ? info.item.description.substring(0, 40)
       : info.item.description;
 
     const ButtonShowMoreDetails = () => {
-      return <Rotate index={info.index} rotation={info.item.hide ? 0 : 180} />;
+      return <Rotate index={info.index} rotation={range} />;
     };
 
     return (

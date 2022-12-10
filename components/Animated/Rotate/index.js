@@ -8,38 +8,38 @@ import Animated, {
 } from 'react-native-reanimated';
 import {CharactersContext} from '../../../services/contexts/characters';
 
-const Rotate = ({index}) => {
+const Rotate = ({index, rotation}) => {
   const OpacityButton = Animated.createAnimatedComponent(TouchableOpacity);
   const ArrowIcon = Animated.createAnimatedComponent(Icon);
   const {info, set, isHidden} = useContext(CharactersContext);
   const [range, setRange] = useState(0);
-  const rotateCurrentValue = useSharedValue(range);
-
-  const startRotateArrowButton = () => {
-    console.log(index, isHidden, info.data[index].hide);
-
-    return (
-      !isHidden
-        ? (set.setIsHidden((info.data[index].hide = true)), setRange(0))
-        : (set.setIsHidden((info.data[index].hide = false)), setRange(180)),
-      (rotateCurrentValue.value = withTiming(range, {
-        duration: 100,
-      }))
-    );
+  const rotateCurrent = useSharedValue(0);
+  const turn = () => {
+    isHidden ? setRange(0) : setRange(180);
+    return (rotateCurrent.value = withTiming(range, {
+      duration: 1650,
+    }));
+  };
+  useEffect(() => {}, [range]);
+  const turnButton = () => {
+    console.log(isHidden);
+    return isHidden
+      ? set.setIsHidden((info.data[index].hide = false))
+      : set.setIsHidden((info.data[index].hide = true));
   };
 
   const rotate = useAnimatedStyle(() => {
     return {
       transform: [
         {
-          rotate: `${rotateCurrentValue.value}deg`,
+          rotate: `${rotateCurrent.value}deg`,
         },
       ],
     };
   });
 
   return (
-    <OpacityButton onPress={startRotateArrowButton}>
+    <OpacityButton onPress={() => turnButton()}>
       <ArrowIcon name="arrow-up" style={[rotate]} />
     </OpacityButton>
   );
