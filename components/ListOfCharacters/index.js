@@ -10,7 +10,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import styles from './styles';
 import ItemSeparatorView from '../ItemSeparatorView';
-import {SearchBar} from 'react-native-elements';
+// import {SearchBar} from 'react-native-elements';
 import Colors from '../../assets/Colors';
 import AnimatedView from '../Animated';
 import RotaryButton from '../Animated/RotaryButton';
@@ -97,13 +97,13 @@ const ListOfCharacters = ({data}) => {
               showBreathingAnim={false}
               onPress={goBack}
             />
-            <SearchBar
+            {/* <SearchBar
               placeholder="Search Characters"
               value={search}
               onChangeText={e => setSearch(e)}
               containerStyle={styles.searchBar}
               platform={'ios'}
-            />
+            /> */}
           </View>
         </AnimatedView>
 
