@@ -10,13 +10,13 @@ import Animated, {
 } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-const ArrowButton = ({
-  styles,
+const Button = ({
+  style,
   arrowDirection,
   size,
   slideToValue,
   showBreathingAnim = false,
-  Pressed,
+  onPress,
   timeOut = 0,
 }) => {
   const TouchableButton = Animated.createAnimatedComponent(TouchableOpacity);
@@ -65,14 +65,14 @@ const ArrowButton = ({
       })),
     );
 
-    stopAnimation, setTimeout(Pressed, timeOut);
+    stopAnimation, setTimeout(onPress, timeOut);
   };
 
   return (
     <TouchableButton
       style={[
         {alignItems: 'center', justifyContent: 'center'},
-        styles,
+        style,
         opacity,
         translateX,
       ]}
@@ -82,4 +82,4 @@ const ArrowButton = ({
     </TouchableButton>
   );
 };
-export default ArrowButton;
+export default Button;

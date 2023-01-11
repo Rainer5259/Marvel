@@ -7,16 +7,15 @@ import Animated, {
   withTiming,
   Easing,
 } from 'react-native-reanimated';
-const AnimatedText = ({children, styles, position, duration}) => {
+const AnimatedText = ({children, styles, position}) => {
   const currentPosition = useSharedValue(position);
-  useEffect(() => {
-    setTimeout(() => {
-      currentPosition.value = withTiming(0, {
-        duration: duration,
-        easing: Easing.ease,
-      });
-    }, 1000);
-  }, []);
+
+  setTimeout(() => {
+    currentPosition.value = withTiming(0, {
+      duration: 450,
+      easing: Easing.bounce,
+    });
+  }, 1000);
 
   const titleStyle = useAnimatedStyle(() => {
     return {

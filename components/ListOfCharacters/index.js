@@ -13,46 +13,39 @@ import ItemSeparatorView from '../ItemSeparatorView';
 import {SearchBar} from 'react-native-elements';
 import Colors from '../../assets/Colors';
 import AnimatedView from '../Animated';
-import Rotate from '../Animated/Rotate';
+import RotaryButton from '../Animated/RotaryButton';
 import AnimatedText from '../Animated/Text';
-import ArrowButton from '../Animated/ArrowButton';
-import {useContext} from 'react';
-import {CharactersContext} from '../../services/contexts/characters';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import Button from '../Animated/ArrowButton';
 
-const ListOfCharacters = () => {
-  const {loadingStatus, info} = useContext(CharactersContext);
-  const navigation = useNavigation();
-  const [filteredData, setFilteredData] = useState(info.data);
-  const [showMore, setShowMore] = useState(true);
+const ListOfCharacters = ({data}) => {
   const [search, setSearch] = useState('');
-
+  const navigation = useNavigation();
   const goBack = () => navigation.navigate('Home');
-  const updateSearch = text => {
-    if (text) {
-      const newData = data.filter(item => {
-        const itemData = item.name ? item.name.toUpperCase() : ''.toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
-      setSearch(text);
-      setFilteredData(newData);
-    } else {
-      setFilteredData(data);
-      setSearch(text);
-    }
-  };
+  const [showMore, setShowMore] = useState(false);
+  const filteredData =
+    search.length > 0
+      ? data.filter(character => {
+          return character.name.includes(search.toUpperCase());
+        })
+      : data;
+
+  useEffect(() => {
+    console.log('renderizando', showMore);
+    // return console.log(data.filter(e => e.hide.includes(showMore)));
+  }, []);
 
   const Description = ({info}) => {
-    let range = info.item.hide ? 0 : 180;
     let description = info.item.hide
       ? info.item.description.substring(0, 40)
       : info.item.description;
-
-    const ButtonShowMoreDetails = () => {
-      return <Rotate index={info.index} rotation={range} />;
+    const expandDescription = () => {
+      showMore ? setShowMore(false) : setShowMore(true);
+      console.log(showMore);
+      return data.filter(e => e.hide.includes(showMore));
     };
-
+    const ButtonShowMoreDetails = () => {
+      return <RotaryButton info={info} onPress={() => expandDescription()} />;
+    };
     return (
       !info.item.description == '' && (
         <View style={styles.description}>
@@ -75,13 +68,10 @@ const ListOfCharacters = () => {
 
     return (
       <View style={styles.content}>
-        <AnimatedText
-          styles={Colors.primaryText}
-          position={-250}
-          duration={350}>
+        <AnimatedText styles={Colors.primaryText} position={-250}>
           {info.item.name}
         </AnimatedText>
-        <AnimatedView position={950} duration={500}>
+        <AnimatedView position={950}>
           <Image
             source={{
               uri: thumbnail,
@@ -98,30 +88,31 @@ const ListOfCharacters = () => {
   return (
     <View style={styles.container}>
       <SafeAreaView style={{flex: 1}}>
-        <AnimatedView position={450} duration={3000}>
+        <AnimatedView position={450}>
           <View style={styles.header}>
-            <ArrowButton
+            <Button
               arrowDirection="left"
               size={36}
               slideToValue={270}
               showBreathingAnim={false}
-              Pressed={goBack}
+              onPress={goBack}
             />
             <SearchBar
               placeholder="Search Characters"
               value={search}
-              onChangeText={updateSearch}
+              onChangeText={e => setSearch(e)}
               containerStyle={styles.searchBar}
               platform={'ios'}
             />
           </View>
         </AnimatedView>
+
         <Text style={[styles.title, Colors.title]}>Characters</Text>
 
         <View style={styles.horizontalBar} />
 
         <FlatList
-          data={info.data}
+          data={filteredData}
           key={item => item.id}
           keyExtractor={item => item.id}
           renderItem={item => <Items info={item} />}

@@ -4,7 +4,7 @@ import styles from './styles';
 import IntroductoryPhrase from '../../../components/IntroductoryPhrase';
 import Logo from '../../../components/Logo';
 import firebase from '../../../src/Firebase';
-import ArrowButton from '../../../components/Animated/ArrowButton';
+import Button from '../../../components/Animated/ArrowButton';
 import {useNavigation} from '@react-navigation/native';
 
 const Home = () => {
@@ -26,15 +26,14 @@ const Home = () => {
     <View style={styles.container}>
       <Logo color="red" height="256" width="256" />
       <IntroductoryPhrase />
-      <Text>{name}</Text>
-      <ArrowButton
+      <Button
         arrowDirection={'right'}
         size={48}
         timeOut={1700}
         slideToValue={270}
         showBreathingAnim={true}
-        styles={{marginTop: '34%'}}
-        Pressed={goToCharactersList}
+        style={{marginTop: '34%'}}
+        onPress={goToCharactersList}
       />
     </View>
   );
