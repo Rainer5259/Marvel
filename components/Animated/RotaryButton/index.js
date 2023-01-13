@@ -10,14 +10,10 @@ import Animated, {
 const RotaryButton = ({info, onPress}) => {
   const OpacityButton = Animated.createAnimatedComponent(TouchableOpacity);
   const ArrowIcon = Animated.createAnimatedComponent(Icon);
-  const [hide, setHide] = useState(info.item.hide);
-  let value = hide ? 0 : 180;
+  const value = info ? 0 : 180;
   const rotateCurrent = useSharedValue(value);
   const startRotation = () => {
     onPress;
-    hide ? setHide(false) : setHide(true);
-    // console.log(info.item.hide);
-
     return (rotateCurrent.value = withTiming(value, {duration: 300}));
   };
 
@@ -33,7 +29,7 @@ const RotaryButton = ({info, onPress}) => {
   return (
     <OpacityButton
       // onPress={onPress}
-      onPress={() => startRotation()}>
+      onPress={(() => startRotation(), onPress)}>
       <ArrowIcon name="arrow-up" style={[rotate]} />
     </OpacityButton>
   );
