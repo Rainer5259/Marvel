@@ -21,7 +21,7 @@ const ListOfCharacters = ({data}) => {
   const [search, setSearch] = useState('');
   const navigation = useNavigation();
   const goBack = () => navigation.navigate('Home');
-  const [showMore, setShowMore] = useState(false);
+  const [showMore, setShowMore] = useState(true);
   const filteredData =
     search.length > 0
       ? data.filter(character => {
@@ -39,12 +39,16 @@ const ListOfCharacters = ({data}) => {
       ? info.item.description.substring(0, 40)
       : info.item.description;
     const expandDescription = () => {
-      showMore ? setShowMore(false) : setShowMore(true);
-      console.log(showMore);
-      return data.filter(e => e.hide.includes(showMore));
+      // showMore ? setShowMore(false) : setShowMore(true);
+      const change = data.filter(e => {
+        return e.hide ? (e.hide = false) : (e.hide = true);
+      });
+
+      console.log('Apertou');
+      return change;
     };
     const ButtonShowMoreDetails = () => {
-      return <RotaryButton info={info} onPress={() => expandDescription()} />;
+      return <RotaryButton onPress={() => expandDescription()} />;
     };
     return (
       !info.item.description == '' && (
