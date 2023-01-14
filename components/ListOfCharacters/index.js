@@ -12,9 +12,12 @@ import Button from '../Animated/ArrowButton';
 
 const ListOfCharacters = ({data}) => {
   const [search, setSearch] = useState('');
+
   const navigation = useNavigation();
   const goBack = () => navigation.navigate('Home');
   const [showMore, setShowMore] = useState(true);
+  const [isOn, setIsOn] = useState(true);
+  const [value, setValue] = useState(0);
   const filteredData =
     search.length > 0
       ? data.filter(character => {
@@ -23,18 +26,23 @@ const ListOfCharacters = ({data}) => {
       : data;
 
   const Description = ({info}) => {
-    const description = showMore
+    const description = info.item.hide
       ? info.item.description.substring(0, 40)
       : info.item.description;
-    const expandDescription = () => {
-      console.log(showMore);
-      const isHidden = showMore
-        ? data.filter(e => (e.hide = false))
-        : data.filter(e => (e.hide = true));
-      return isHidden;
+
+    const startRotation = () => {
+      return isOn
+        ? setIsOn((info.item.hide = false)) //setNull
+        : setIsOn((info.item.hide = true));
     };
     const ButtonShowMoreDetails = () => {
-      return <RotaryButton onPress={() => expandDescription()} />;
+      return (
+        <RotaryButton
+          key={`hide: ${{isHidden: info.item.hide}}`}
+          value={isOn}
+          onPress={() => startRotation()}
+        />
+      );
     };
     return (
       !info.item.description == '' && (

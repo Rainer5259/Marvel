@@ -7,15 +7,12 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
-const RotaryButton = ({info, onPress}) => {
+const RotaryButton = ({onPress, value}) => {
   const OpacityButton = Animated.createAnimatedComponent(TouchableOpacity);
   const ArrowIcon = Animated.createAnimatedComponent(Icon);
-  const value = info ? 0 : 180;
-  const rotateCurrent = useSharedValue(value);
-  const startRotation = () => {
-    onPress;
-    return (rotateCurrent.value = withTiming(value, {duration: 300}));
-  };
+  const rotateCurrent = useSharedValue(180);
+  const [isOn, setIsOn] = useState(value);
+  const [currentValue, setCurrentValue] = useState(0);
 
   const rotate = useAnimatedStyle(() => {
     return {
@@ -26,6 +23,10 @@ const RotaryButton = ({info, onPress}) => {
       ],
     };
   });
+  const startRotation = () => {
+    isOn ? setCurrentValue(180) : setCurrentValue(0);
+    return (rotateCurrent.value = withTiming(currentValue, {duration: 300}));
+  };
   return (
     <OpacityButton
       // onPress={onPress}
