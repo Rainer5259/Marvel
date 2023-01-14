@@ -1,12 +1,5 @@
-import React, {useState, useEffect, useCallback} from 'react';
-import {
-  View,
-  SafeAreaView,
-  FlatList,
-  Text,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, SafeAreaView, FlatList, Text, Image} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import styles from './styles';
 import ItemSeparatorView from '../ItemSeparatorView';
@@ -29,23 +22,16 @@ const ListOfCharacters = ({data}) => {
         })
       : data;
 
-  useEffect(() => {
-    console.log('renderizando', showMore);
-    // return console.log(data.filter(e => e.hide.includes(showMore)));
-  }, []);
-
   const Description = ({info}) => {
-    let description = info.item.hide
+    const description = showMore
       ? info.item.description.substring(0, 40)
       : info.item.description;
     const expandDescription = () => {
-      // showMore ? setShowMore(false) : setShowMore(true);
-      const change = data.filter(e => {
-        return e.hide ? (e.hide = false) : (e.hide = true);
-      });
-
-      console.log('Apertou');
-      return change;
+      console.log(showMore);
+      const isHidden = showMore
+        ? data.filter(e => (e.hide = false))
+        : data.filter(e => (e.hide = true));
+      return isHidden;
     };
     const ButtonShowMoreDetails = () => {
       return <RotaryButton onPress={() => expandDescription()} />;
