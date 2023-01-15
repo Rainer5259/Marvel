@@ -1,5 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {View, SafeAreaView, FlatList, Text, Image} from 'react-native';
+import {
+  View,
+  SafeAreaView,
+  FlatList,
+  Text,
+  Image,
+  ScrollView,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import styles from './styles';
 import ItemSeparatorView from '../ItemSeparatorView';
@@ -15,9 +22,15 @@ const ListOfCharacters = ({data}) => {
 
   const navigation = useNavigation();
   const goBack = () => navigation.navigate('Home');
-  const [showMore, setShowMore] = useState(true);
   const [isOn, setIsOn] = useState(true);
-  const [value, setValue] = useState(0);
+  const [isHidden, setIsHidden] = useState([]);
+
+  const createHide = () =>
+    data.forEach((e, i, a) => {
+      return isHidden.push({hidden: e.hide});
+    });
+  createHide();
+  // console.log(' ', isHidden);
   const filteredData =
     search.length > 0
       ? data.filter(character => {
@@ -25,49 +38,50 @@ const ListOfCharacters = ({data}) => {
         })
       : data;
 
-  const Description = ({info}) => {
-    const description = info.item.hide
-      ? info.item.description.substring(0, 40)
-      : info.item.description;
+  const startRotation = i => {
+    isOn ? setIsOn(false) : setIsOn(true);
+    return isOn ? (isHidden[i].hidden = false) : (isHidden[i].hidden = true);
+  };
 
-    const startRotation = () => {
-      return isOn
-        ? setIsOn((info.item.hide = false)) //setNull
-        : setIsOn((info.item.hide = true));
-    };
+  const Description = ({info, index}) => {
+    const description = info.description;
+
+    console.log(isOn);
+
     const ButtonShowMoreDetails = () => {
       return (
         <RotaryButton
-          key={`hide: ${{isHidden: info.item.hide}}`}
-          value={isOn}
-          onPress={() => startRotation()}
+          onPress={() => {
+            startRotation(index);
+          }}
         />
       );
     };
     return (
-      !info.item.description == '' && (
+      !info.description == '' && (
         <View style={styles.description}>
           <Text style={[{marginRight: '8%'}, Colors.description]}>
-            {description}
+            {isHidden[index].hidden
+              ? description.substring(0, 30)
+              : description}
           </Text>
-
           <ButtonShowMoreDetails />
         </View>
       )
     );
   };
 
-  const Items = ({info}) => {
+  const Content = ({info}) => {
     const img = {
-      path: info.item.thumbnail.path,
-      extension: info.item.thumbnail.extension,
+      path: info.thumbnail.path,
+      extension: info.thumbnail.extension,
     };
     const thumbnail = `${img.path.replace(/http/i, 'https')}.${img.extension}`;
-
+    console.log(info);
     return (
       <View style={styles.content}>
         <AnimatedText styles={Colors.primaryText} position={-250}>
-          {info.item.name}
+          {info.name}
         </AnimatedText>
         <AnimatedView position={950}>
           <Image
@@ -77,8 +91,6 @@ const ListOfCharacters = ({data}) => {
             style={styles.img}
           />
         </AnimatedView>
-
-        <Description info={info} />
       </View>
     );
   };
@@ -108,14 +120,28 @@ const ListOfCharacters = ({data}) => {
         <Text style={[styles.title, Colors.title]}>Characters</Text>
 
         <View style={styles.horizontalBar} />
-
-        <FlatList
+        <ScrollView>
+          {filteredData.map((item, i) => {
+            return (
+              <View>
+                <Content info={item} />
+                <Description key={`i:${i}`} info={item} index={i} />
+              </View>
+            );
+          })}
+        </ScrollView>
+        {/* <FlatList
           data={filteredData}
           key={item => item.id}
           keyExtractor={item => item.id}
-          renderItem={item => <Items info={item} />}
+          renderItem={item => (
+            <View>
+              <Items info={item} />
+              <Description info={item} />
+            </View>
+          )}
           ItemSeparatorComponent={ItemSeparatorView}
-        />
+        /> */}
       </SafeAreaView>
     </View>
   );

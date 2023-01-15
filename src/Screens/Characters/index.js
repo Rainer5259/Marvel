@@ -14,7 +14,7 @@ function CharactersScreen() {
       const response = await api.get(characters);
       setData(
         response.data.data.results,
-        response.data.data.results.forEach((e, i, a) => (a[i].hide = true)),
+        // response.data.data.results.forEach((e, i, a) => (a[i].hide = true)),
       );
     } catch (e) {
       Alert.alert('Erro ao requisitar dados');
