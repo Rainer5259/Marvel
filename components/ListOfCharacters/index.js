@@ -6,16 +6,18 @@ import {
   Text,
   Image,
   ScrollView,
+  Alert,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import styles from './styles';
 import ItemSeparatorView from '../ItemSeparatorView';
-// import {SearchBar} from 'react-native-elements';
+import {SearchBar} from '@rneui/themed';
 import Colors from '../../assets/Colors';
 import AnimatedView from '../Animated';
 import RotaryButton from '../Animated/RotaryButton';
 import AnimatedText from '../Animated/Text';
 import Button from '../Animated/ArrowButton';
+import Title from '../Title';
 
 const ListOfCharacters = ({data}) => {
   const [search, setSearch] = useState('');
@@ -25,12 +27,12 @@ const ListOfCharacters = ({data}) => {
   const [isOn, setIsOn] = useState(true);
   const [isHidden, setIsHidden] = useState([]);
 
-  const createHide = () =>
-    data.forEach((e, i, a) => {
-      return isHidden.push({hidden: e.hide});
-    });
-  createHide();
-  // console.log(' ', isHidden);
+  // const createHide = () =>
+  //   data.forEach((e, i, a) => {
+  //     return isHidden.push({hidden: e.hide});
+  //   });
+  // createHide();
+
   const filteredData =
     search.length > 0
       ? data.filter(character => {
@@ -38,15 +40,29 @@ const ListOfCharacters = ({data}) => {
         })
       : data;
 
+  const Header = () => {
+    return (
+      <AnimatedView position={450}>
+        <View style={styles.header}>
+          <Button
+            arrowDirection="left"
+            size={36}
+            slideToValue={270}
+            showBreathingAnim={false}
+            onPress={goBack}
+          />
+        </View>
+      </AnimatedView>
+    );
+  };
   const startRotation = i => {
-    isOn ? setIsOn(false) : setIsOn(true);
-    return isOn ? (isHidden[i].hidden = false) : (isHidden[i].hidden = true);
+    return isHidden
+      ? (isHidden[i].hidden = false)
+      : (isHidden[i].hidden = true);
   };
 
   const Description = ({info, index}) => {
-    const description = info.description;
-
-    console.log(isOn);
+    const description = info.item.description;
 
     const ButtonShowMoreDetails = () => {
       return (
@@ -58,10 +74,10 @@ const ListOfCharacters = ({data}) => {
       );
     };
     return (
-      !info.description == '' && (
+      !info.item.description == '' && (
         <View style={styles.description}>
           <Text style={[{marginRight: '8%'}, Colors.description]}>
-            {isHidden[index].hidden
+            {isHidden[info.index].hidden
               ? description.substring(0, 30)
               : description}
           </Text>
@@ -71,77 +87,68 @@ const ListOfCharacters = ({data}) => {
     );
   };
 
-  const Content = ({info}) => {
+  const Thumbnail = ({info}) => {
     const img = {
-      path: info.thumbnail.path,
-      extension: info.thumbnail.extension,
+      path: info.item.thumbnail.path,
+      extension: info.item.thumbnail.extension,
     };
+
     const thumbnail = `${img.path.replace(/http/i, 'https')}.${img.extension}`;
-    console.log(info);
+
+    return (
+      <Image
+        source={{
+          uri: thumbnail,
+        }}
+        style={styles.img}
+      />
+    );
+  };
+  const Characters = ({info}) => {
     return (
       <View style={styles.content}>
         <AnimatedText styles={Colors.primaryText} position={-250}>
-          {info.name}
+          {info.item.name}
         </AnimatedText>
         <AnimatedView position={950}>
-          <Image
-            source={{
-              uri: thumbnail,
-            }}
-            style={styles.img}
-          />
+          <Thumbnail info={info} />
+          <Description info={info} index={info.index} />
         </AnimatedView>
       </View>
     );
   };
 
+  const Content = ({info}) => {
+    return <Characters info={info} />;
+  };
+
+  useEffect(() => {
+    console.log('Atualizou tudo');
+  }, [Description]);
+
   return (
     <View style={styles.container}>
       <SafeAreaView style={{flex: 1}}>
-        <AnimatedView position={450}>
-          <View style={styles.header}>
-            <Button
-              arrowDirection="left"
-              size={36}
-              slideToValue={270}
-              showBreathingAnim={false}
-              onPress={goBack}
-            />
-            {/* <SearchBar
-              placeholder="Search Characters"
-              value={search}
-              onChangeText={e => setSearch(e)}
-              containerStyle={styles.searchBar}
-              platform={'ios'}
-            /> */}
-          </View>
-        </AnimatedView>
+        <View style={styles.header}>
+          <Header />
+          <SearchBar
+            placeholder="Search Characters"
+            value={search}
+            onChangeText={e => setSearch(e)}
+            containerStyle={styles.searchBar}
+            platform={'ios'}
+          />
+        </View>
 
-        <Text style={[styles.title, Colors.title]}>Characters</Text>
+        <Title style={[Colors.title, {textAlign: 'center'}]}>Characters</Title>
 
-        <View style={styles.horizontalBar} />
-        <ScrollView>
-          {filteredData.map((item, i) => {
-            return (
-              <View>
-                <Content info={item} />
-                <Description key={`i:${i}`} info={item} index={i} />
-              </View>
-            );
-          })}
-        </ScrollView>
-        {/* <FlatList
+        <FlatList
           data={filteredData}
           key={item => item.id}
           keyExtractor={item => item.id}
-          renderItem={item => (
-            <View>
-              <Items info={item} />
-              <Description info={item} />
-            </View>
-          )}
+          renderItem={item => <Content info={item} />}
           ItemSeparatorComponent={ItemSeparatorView}
-        /> */}
+        />
       </SafeAreaView>
     </View>
   );
