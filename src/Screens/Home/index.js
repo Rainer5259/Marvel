@@ -9,19 +9,20 @@ import {useNavigation} from '@react-navigation/native';
 
 const Home = () => {
   const [name, setName] = useState(null);
-  const goToCharactersList = () => useNavigation().navigate('ListOfCharacters');
-  useEffect(() => {
-    async function createUser() {
-      await firebase
-        .database()
-        .ref('users/1/users')
-        .set('Rainer Cordeiro')
-        .then(value => {
-          setName(value);
-        });
-    }
-    createUser();
-  }, []);
+  const navigation = useNavigation();
+  const goToCharactersList = () => navigation.navigate('Characters');
+  // useEffect(() => {
+  //   async function createUser() {
+  //     await firebase
+  //       .database()
+  //       .ref('users/1/users')
+  //       .set('Rainer Cordeiro')
+  //       .then(value => {
+  //         setName(value);
+  //       });
+  //   }
+  //   createUser();
+  // }, []);
   return (
     <View style={styles.container}>
       <Logo color="red" height="256" width="256" />
