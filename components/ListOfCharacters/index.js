@@ -7,6 +7,7 @@ import {
   Image,
   ScrollView,
   Alert,
+  TextInput,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import styles from './styles';
@@ -38,8 +39,8 @@ const ListOfCharacters = ({data}) => {
       ? data.filter(character => {
           return character.name.includes(search.toUpperCase());
         })
-      : data;
-
+      : [];
+  const info = search.length > 0 ? filteredData : data;
   const Header = () => {
     return (
       <AnimatedView position={450}>
@@ -68,7 +69,7 @@ const ListOfCharacters = ({data}) => {
       return (
         <RotaryButton
           onPress={() => {
-            startRotation(index);
+            startRotation(info.index);
           }}
         />
       );
@@ -104,6 +105,9 @@ const ListOfCharacters = ({data}) => {
       />
     );
   };
+
+  console.log('Renderizou');
+
   const Characters = ({info}) => {
     return (
       <View style={styles.content}>
@@ -118,13 +122,28 @@ const ListOfCharacters = ({data}) => {
     );
   };
 
-  const Content = ({info}) => {
-    return <Characters info={info} />;
+  const Content = () => {
+    return (
+      <FlatList
+        data={info}
+        key={item => item.id}
+        keyExtractor={item => item.id}
+        renderItem={item => <Characters info={item} />}
+        ItemSeparatorComponent={ItemSeparatorView}
+      />
+    );
   };
 
-  useEffect(() => {
-    console.log('Atualizou tudo');
-  }, [Description]);
+  const SearchBarCustome = ({props}) => {
+    return (
+      <TextInput
+        style={{width: 200, height: 45, backgroundColor: 'skyblue'}}
+        value={search}
+        onChangeText={e => setSearch(e)}
+        placeholder="Search Characters"
+      />
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -142,13 +161,7 @@ const ListOfCharacters = ({data}) => {
 
         <Title style={[Colors.title, {textAlign: 'center'}]}>Characters</Title>
 
-        <FlatList
-          data={filteredData}
-          key={item => item.id}
-          keyExtractor={item => item.id}
-          renderItem={item => <Content info={item} />}
-          ItemSeparatorComponent={ItemSeparatorView}
-        />
+        <Content />
       </SafeAreaView>
     </View>
   );
