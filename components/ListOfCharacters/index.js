@@ -27,11 +27,11 @@ const ListOfCharacters = ({data}) => {
   const [isOn, setIsOn] = useState(true);
   const [isHidden, setIsHidden] = useState([]);
 
-  // const createHide = () =>
-  //   data.forEach((e, i, a) => {
-  //     return isHidden.push({hidden: e.hide});
-  //   });
-  // createHide();
+  const createHide = () =>
+    data.forEach((e, i, a) => {
+      return isHidden.push({hidden: e.hide});
+    });
+  createHide();
 
   const filteredData =
     search.length > 0
