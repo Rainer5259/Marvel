@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import Colors from '../../assets/Colors';
+import Colors from '../../../assets/Colors';
 
 const styles = StyleSheet.create({
   container: {
@@ -10,13 +10,7 @@ const styles = StyleSheet.create({
     borderLeftWidth: 5,
     borderColor: 'skyblue',
   },
-  header: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    paddingHorizontal: '4%',
-    marginRight: '4%',
-    justifyContent: 'space-evenly',
-  },
+
   buttonArrow: {
     width: 50,
     height: 50,
@@ -29,6 +23,13 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     backgroundColor: Colors.colors.default,
+  },
+  header: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    paddingHorizontal: '4%',
+    marginRight: '4%',
+    justifyContent: 'space-evenly',
   },
   content: {
     top: '5%',
@@ -46,24 +47,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     //borderRadius estilizar
   },
-  img: {
-    top: '2%',
-    height: 350,
-    resizeMode: 'stretch',
-    borderRadius: 10,
-    marginBottom: '10%',
-    shadowOpacity: 10,
-  },
-  description: {
-    bottom: '5%',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: '#E9E9E7',
-    flexDirection: 'row',
-    borderRadius: 15,
-    padding: '2%',
-    margin: '2%',
-  },
+
+  // description: {
+  //   bottom: '5%',
+  //   justifyContent: 'space-between',
+  //   alignItems: 'center',
+  //   backgroundColor: '#E9E9E7',
+  //   flexDirection: 'row',
+  //   borderRadius: 15,
+  //   padding: '2%',
+  //   margin: '2%',
+  // },
   showMore: {
     alignItems: 'center',
     justifyContent: 'center',

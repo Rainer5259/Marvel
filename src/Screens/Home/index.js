@@ -4,7 +4,7 @@ import styles from './styles';
 import IntroductoryPhrase from '../../../components/IntroductoryPhrase';
 import Logo from '../../../components/Logo';
 import firebase from '../../../src/Firebase';
-import Button from '../../../components/Animated/ArrowButton';
+import Button from '../../../components/Animated/Button';
 import {useNavigation} from '@react-navigation/native';
 
 const Home = () => {

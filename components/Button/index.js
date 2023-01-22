@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, memo} from 'react';
 import {TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Animated, {
@@ -21,6 +21,7 @@ const Button = ({
 
   useEffect(() => {
     titlePosition.value = withTiming(0, duration);
+    console.log('renderizei');
   }, []);
 
   const titleStyle = useAnimatedStyle(() => {

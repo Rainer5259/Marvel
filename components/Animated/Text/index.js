@@ -1,5 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import React, {useEffect} from 'react';
 
 import Animated, {
   useSharedValue,
@@ -8,14 +7,13 @@ import Animated, {
   Easing,
 } from 'react-native-reanimated';
 const AnimatedText = ({children, styles, position}) => {
-  const currentPosition = useSharedValue(position);
-
-  setTimeout(() => {
-    currentPosition.value = withTiming(0, {
-      duration: 450,
+  const currentPosition = useSharedValue(-150);
+  useEffect(() => {
+    return (currentPosition.value = withTiming(0, {
+      duration: 1450,
       easing: Easing.bounce,
-    });
-  }, 1000);
+    }));
+  }, []);
 
   const titleStyle = useAnimatedStyle(() => {
     return {

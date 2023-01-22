@@ -1,21 +1,16 @@
-import React, {useState, useEffect} from 'react';
-import {View} from 'react-native';
+import React, {useState, useEffect, useCallback, use} from 'react';
+import {ActivityIndicator, View} from 'react-native';
 import Svg, {Path} from 'react-native-svg';
 import icons from './path';
 import styles from './styles';
 
 const LoadingData = () => {
-  let randomNumber = icons[Math.floor(Math.random() * icons.length)];
-  const [icon, setIcon] = useState(randomNumber);
-
-  const changeIcon = () => {
-    setInterval(() => {
-      setIcon(icon);
-    }, 1500);
-  };
+  const random = icons[Math.floor(Math.random() * icons.length)];
+  const [icon, setIcon] = useState(random);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    changeIcon();
+    // console.log(icons.filter(e => e.));
   }, []);
   return (
     <View style={styles.content}>
