@@ -12,7 +12,10 @@ function CharactersScreen() {
     const characters = `/characters?ts=${TS}&apikey=${KEYS.PUBLIC}&hash=${HASH}`;
     try {
       const response = await api.get(characters);
-      setData(response.data.data.results);
+      setData(
+        response.data.data.results,
+        // response.data.data.results.forEach((e, i, a) => (a[i].hide = true)),
+      );
     } catch (e) {
       Alert.alert('Erro ao requisitar dados');
     } finally {

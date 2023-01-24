@@ -7,8 +7,6 @@ import Animated, {
   useAnimatedProps,
 } from 'react-native-reanimated';
 
-import ListOfCharacters from '../Characters/ListOfCharacters';
-
 const ViewCustom = Animated.createAnimatedComponent(View);
 const AnimatedView = ({children, position, style}) => {
   const viewPosition = useSharedValue(position);

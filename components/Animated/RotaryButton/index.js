@@ -30,7 +30,7 @@ const RotaryButton = ({onPress, value}) => {
   return (
     <OpacityButton
       // onPress={onPress}
-      onPress={(() => startRotation(), onPress)}>
+      onPress={onPress}>
       <ArrowIcon name="arrow-up" style={[rotate]} />
     </OpacityButton>
   );

@@ -14,10 +14,7 @@ import styles from './styles';
 import ItemSeparatorView from '../../ItemSeparatorView';
 import {SearchBar} from '@rneui/themed';
 import Colors from '../../../assets/Colors';
-import AnimatedView from '../../Animated';
-import RotaryButton from '../../Animated/RotaryButton';
-import AnimatedText from '../../Animated/Text';
-import Button from '../../Animated/Button';
+
 import Title from '../../Title';
 import Header from '../Header';
 import Description from '../Description';
@@ -32,12 +29,23 @@ const ListOfCharacters = ({data}) => {
   const [isOn, setIsOn] = useState(true);
   const [isHidden, setIsHidden] = useState([]);
 
-  const createHide = () =>
-    data.forEach((e, i, a) => {
-      return isHidden.push({hidden: e.hide});
-    });
-  createHide();
+  let hidden = [];
+  useEffect(() => {
+    const createHide = () => {
+      data.forEach((e, i, a) => hidden.push((a[i].hide = true)));
+    };
+    createHide();
+    return console.log(hidden);
+  }, []);
+  // useEffect(() => {
+  //   console.log('Renderizou data');
+  // }, [data]);
 
+  const startRotation = i => {
+    let state = hidden[i] ? (hidden[i] = false) : (hidden[i] = true);
+    return setIsOn(state);
+    console.log(isHidden, state);
+  };
   const filteredData =
     search.length > 0
       ? data.filter(character => {
@@ -45,13 +53,18 @@ const ListOfCharacters = ({data}) => {
         })
       : [];
   const info = search.length > 0 ? filteredData : data;
-
+  // console.log(isHidden);
   const Content = ({info}) => {
+    const description = isOn
+      ? info.item.description.substring(0, 35)
+      : info.item.description;
     return (
       <View style={styles.content}>
         <Title style={Colors.primaryText}>{info.item.name}</Title>
         <Thumbnail info={info} />
-        <Description>{info.item.description}</Description>
+        <Description info={info} onPress={() => startRotation(info.index)}>
+          {description}
+        </Description>
       </View>
     );
   };
@@ -100,11 +113,11 @@ const ListOfCharacters = ({data}) => {
             platform={'ios'}
           />
         </View>
-        <LoadingData />
+
         <List />
       </SafeAreaView>
     </View>
   );
 };
 
-export default memo(ListOfCharacters);
+export default ListOfCharacters;

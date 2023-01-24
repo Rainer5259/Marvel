@@ -4,29 +4,26 @@ import Colors from '../../../assets/Colors';
 import RotaryButton from '../../Animated/RotaryButton';
 import styles from './styles';
 
-const Description = ({children}) => {
+const Description = ({children, onPress, info}) => {
   // const description = children;
   const [isHidden, setIsHidden] = useState(true);
-  const startRotation = i => {
-    return isHidden
-      ? (isHidden[i].hidden = false)
-      : (isHidden[i].hidden = true);
-  };
-
+  let hide = info.item.hide;
+  console.log(isHidden);
+  const description = isHidden
+    ? info.item.description.substring(0, 35)
+    : info.item.description;
   const ButtonShowMoreDetails = () => {
-    return (
-      <RotaryButton
-      // onPress={() => {
-      //   startRotation(children.index);
-      // }}
-      />
-    );
+    const state = () => {
+      let hidden = isHidden ? (hide = false) : (hide = true);
+      return setIsHidden(hidden);
+    };
+    return <RotaryButton onPress={() => state()} />;
   };
   return (
-    !children == '' && (
+    !description == '' && (
       <View style={styles.description}>
         <Text style={[{marginRight: '8%'}, Colors.description]}>
-          {children}
+          {description}
         </Text>
         <ButtonShowMoreDetails />
       </View>
