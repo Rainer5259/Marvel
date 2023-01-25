@@ -4,13 +4,16 @@ import Svg, {Path} from 'react-native-svg';
 import icons from './path';
 import styles from './styles';
 
-const LoadingData = () => {
-  const random = icons[Math.floor(Math.random() * icons.length)];
-  const [icon, setIcon] = useState(random);
-  const [loading, setLoading] = useState(true);
-
+const LoadingData = ({random}) => {
+  const icon = icons[random];
+  // const [icon, setIcon] = useState(random);
+  // const [loading, setLoading] = useState(true);
   useEffect(() => {
-    // console.log(icons.filter(e => e.));
+    // while (loading) {
+    //   setTimeout(() => {
+    //     atualizaIcon;
+    //   }, 200);
+    // }
   }, []);
   return (
     <View style={styles.content}>

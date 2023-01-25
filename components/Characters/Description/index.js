@@ -1,4 +1,4 @@
-import React, {useState, useMemo} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text} from 'react-native';
 import Colors from '../../../assets/Colors';
 import RotaryButton from '../../Animated/RotaryButton';
@@ -7,8 +7,16 @@ import styles from './styles';
 const Description = ({children, onPress, info}) => {
   // const description = children;
   const [isHidden, setIsHidden] = useState(true);
+  // console.log(isHidden);
+  useEffect(() => {
+    const createHide = () => {
+      info.item.hide = true;
+    };
+    createHide();
+    // console.log(info);
+  }, []);
+
   let hide = info.item.hide;
-  console.log(isHidden);
   const description = isHidden
     ? info.item.description.substring(0, 35)
     : info.item.description;

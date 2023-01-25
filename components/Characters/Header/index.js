@@ -4,8 +4,8 @@ import {View} from 'react-native';
 import AnimatedView from '../../Animated';
 import Button from '../../Animated/Button';
 export default function Header() {
-  // const navigation = useNavigation();
-  // const goBack = () => navigation.navigate('Home');
+  const navigation = useNavigation();
+  const goBack = () => navigation.navigate('Home');
   return (
     <View>
       <AnimatedView position={450}>
@@ -22,7 +22,7 @@ export default function Header() {
             size={36}
             slideToValue={270}
             showBreathingAnim={false}
-            // onPress={goBack}
+            onPress={goBack}
           />
         </View>
       </AnimatedView>

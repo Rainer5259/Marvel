@@ -29,4 +29,4 @@ const AnimatedView = ({children, position, style}) => {
     </ViewCustom>
   );
 };
-export default React.memo(AnimatedView);
+export default AnimatedView;
