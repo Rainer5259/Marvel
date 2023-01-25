@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
   thumbnail: {
     top: '2%',
-    height: 150,
+    height: 320,
     resizeMode: 'stretch',
     borderRadius: 10,
     marginBottom: '10%',

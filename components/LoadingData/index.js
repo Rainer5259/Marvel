@@ -4,21 +4,21 @@ import Svg, {Path} from 'react-native-svg';
 import icons from './path';
 import styles from './styles';
 
-const LoadingData = ({random}) => {
-  const icon = icons[random];
-  // const [icon, setIcon] = useState(random);
-  // const [loading, setLoading] = useState(true);
+const LoadingData = () => {
+  let [count, setCount] = useState(0);
+  let randomIcons = count != 0 && Math.floor(Math.random() * icons.length);
+  // useEffect(() => {}, []);
   useEffect(() => {
-    // while (loading) {
-    //   setTimeout(() => {
-    //     atualizaIcon;
-    //   }, 200);
-    // }
-  }, []);
+    count <= Infinity &&
+      setTimeout(() => {
+        setCount(count + 1), console.log(count);
+      }, 1000);
+    randomIcons;
+  }, [count]);
   return (
     <View style={styles.content}>
       <Svg fill="#000000" viewBox="0 0 48 48" width="48px" height="48px">
-        <Path d={icon} />
+        <Path d={icons[randomIcons]} />
       </Svg>
     </View>
   );
