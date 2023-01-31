@@ -1,20 +1,20 @@
 import {StyleSheet} from 'react-native';
-import Colors from '../../../assets/Colors';
+import Themes from '../../assets/Themes';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
   welcome: {
-    color: Colors.colors.red,
-    fontFamily: 'Poppins-Bold',
+    color: Themes.colors.red,
+    // fontFamily: 'Poppins-Bold',
     fontSize: 40,
 
     left: '5%',
   },
   title: {
-    ...Colors.title,
-    color: Colors.colors.red,
+    ...Themes.title,
+    color: Themes.colors.red,
   },
   comeIn: {
     left: '15%',
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     width: '20%',
     height: '5%',
     borderRadius: 20,
-    backgroundColor: Colors.colors.red,
+    backgroundColor: Themes.colors.red,
     alignItems: 'center',
     justifyContent: 'center',
   },

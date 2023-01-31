@@ -21,7 +21,6 @@ function CharactersProvider({children}) {
         response.data.data.results,
         response.data.data.results.map((e, i, a) => (a[i].hide = true)),
       );
-      // console.log(JSON.stringify(data.length, null, 3));
     } catch (e) {
       Alert.alert('Erro ao requisitar dados');
     } finally {

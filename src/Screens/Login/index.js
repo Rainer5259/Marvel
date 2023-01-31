@@ -1,24 +1,27 @@
-import React, {useEffect, useState, createContext} from 'react';
+import {useNavigation} from '@react-navigation/native';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   View,
   Text,
   TextInput,
   TouchableOpacity,
-  Alert,
   KeyboardAvoidingView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import Colors from '../../../assets/Colors';
-import LogoCaptainAmerica from '../../../components/LogoCaptainAmerica';
+import Colors from '../../assets/Themes';
+import LogoCaptainAmerica from '../../../src/components/LogoCaptainAmerica';
 import styles from './styles';
+import Themes from '../../assets/Themes';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [data, setData] = useState([{}]);
   const [hide, setHide] = useState(true);
+  const navigation = useNavigation();
   const [eye, setEye] = useState('eye');
+
   let inputsLenghts = username.length == 0 || password.length <= 5;
   let opacity = inputsLenghts ? 0.5 : 1.0;
   let isDisable = inputsLenghts ? true : false;
@@ -32,6 +35,7 @@ const Login = () => {
   };
 
   const login = () => {
+    navigation.navigate('Home');
     setData({username: username, password: password});
   };
 
@@ -40,7 +44,6 @@ const Login = () => {
       ? (setHide(false), setEye('eye'))
       : (setHide(true), setEye('eye-slash'));
   };
-  console.log(data.username);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -84,11 +87,11 @@ const Login = () => {
               left: '18%',
               maxWidth: '47%',
             }}>
-            <Text style={[Colors.description]}>You don't has a account?</Text>
+            <Text style={[Themes.description]}>You don't has a account?</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={{left: '18%', maxWidth: '43%'}}>
-            <Text style={[Colors.description, {color: Colors.colors.red}]}>
+            <Text style={[Themes.description, {color: Themes.colors.red}]}>
               Forgot your password?
             </Text>
           </TouchableOpacity>

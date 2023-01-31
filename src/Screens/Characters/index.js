@@ -1,36 +1,45 @@
 import React, {useEffect, useState} from 'react';
 import {Alert} from 'react-native';
-import ListOfCharacters from '../../../components/Characters/ListOfCharacters';
-import LoadingData from '../../../components/LoadingData';
+import ListOfCharacters from '../../../src/components/Characters/ListOfCharacters';
+import LoadingData from '../../../src/components/LoadingData';
 import api from '../../../services/api';
 import {TS, KEYS, HASH} from '../../../services/validation';
 
 function CharactersScreen() {
   const [data, setData] = useState([]);
-  let loading = data.length != 0 ? false : true;
+  const [loading, setLoading] = useState(true);
+  const [searchName, setSearchName] = useState('');
   async function loadCharacters() {
-    const characters = `/characters?ts=${TS}&apikey=${KEYS.PUBLIC}&hash=${HASH}`;
+    // if (searchName === '') {
+    //   setLoading(true);
+    // }
+    const characters = `/characters?ts=${TS}&apikey=${
+      KEYS.PUBLIC
+    }&hash=${HASH}&limit=100&${
+      searchName ? `&nameStartsWith=${searchName}` : ''
+    }`;
     try {
       const response = await api.get(characters);
-      setData(
-        response.data.data.results,
-        // response.data.data.results.forEach((e, i, a) => (a[i].hide = true)),
-      );
+      setData(response.data.data.results);
     } catch (e) {
       Alert.alert('Erro ao requisitar dados');
     } finally {
-      loading;
+      setLoading(true);
     }
   }
   useEffect(() => {
     loadCharacters();
   }, []);
-  console.log('Renderizou componente');
 
-  //Buscar codigo que determina quando o fetch está sendo requisitado
-  //while(fetch){random} será que vai funcionar?
-
-  return loading ? <LoadingData /> : <ListOfCharacters data={data} />;
+  return loading ? (
+    <LoadingData />
+  ) : (
+    <ListOfCharacters
+      searchName={searchName}
+      setSearchName={setSearchName}
+      data={data}
+    />
+  );
 }
 
 export default CharactersScreen;

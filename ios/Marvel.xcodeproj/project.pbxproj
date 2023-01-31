@@ -33,8 +33,6 @@
 		4DC853F128AC143A005D8922 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4DC853E128AC143A005D8922 /* Feather.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		F470DD340F81823E4A03C83B /* libPods-Marvel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BDF68558378B94F66D4976AC /* libPods-Marvel.a */; };
-		89655FD092184641AEA6B383 /* Poppins.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7EEF3C23EF15467EAFFA3602 /* Poppins.ttf */; };
-		AD5DD661C1FF43DEBFF592BB /* PoppinsBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4C92D28F51B446DC9BB2EBC2 /* PoppinsBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +56,8 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Marvel/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Marvel/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Marvel/main.m; sourceTree = "<group>"; };
+		4D7E9AD029887007003E164A /* PoppinsBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = PoppinsBold.ttf; path = ../src/assets/fonts/PoppinsBold.ttf; sourceTree = "<group>"; };
+		4D7E9AD129887007003E164A /* Poppins.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Poppins.ttf; path = ../src/assets/fonts/Poppins.ttf; sourceTree = "<group>"; };
 		4DADF9AA28AC0ECC0062ABBD /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Fonts; path = "../node_modules/react-native-vector-icons/Fonts"; sourceTree = "<group>"; };
 		4DC853D228AC143A005D8922 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome5_Solid.ttf; path = Fonts/FontAwesome5_Solid.ttf; sourceTree = "<group>"; };
 		4DC853D328AC143A005D8922 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = Fonts/MaterialIcons.ttf; sourceTree = "<group>"; };
@@ -82,8 +82,6 @@
 		C3A6A3460627625BB696C1D5 /* Pods-Marvel-MarvelTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Marvel-MarvelTests.debug.xcconfig"; path = "Target Support Files/Pods-Marvel-MarvelTests/Pods-Marvel-MarvelTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FC29FAEB927E3E0607C444D1 /* Pods-Marvel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Marvel.release.xcconfig"; path = "Target Support Files/Pods-Marvel/Pods-Marvel.release.xcconfig"; sourceTree = "<group>"; };
-		7EEF3C23EF15467EAFFA3602 /* Poppins.ttf */ = {isa = PBXFileReference; name = "Poppins.ttf"; path = "../assets/fonts/Poppins.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		4C92D28F51B446DC9BB2EBC2 /* PoppinsBold.ttf */ = {isa = PBXFileReference; name = "PoppinsBold.ttf"; path = "../assets/fonts/PoppinsBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +145,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		338F9B83D7AE4C8BB09A4F4F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4D7E9AD129887007003E164A /* Poppins.ttf */,
+				4D7E9AD029887007003E164A /* PoppinsBold.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -205,16 +212,6 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
-		};
-		338F9B83D7AE4C8BB09A4F4F /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				7EEF3C23EF15467EAFFA3602 /* Poppins.ttf */,
-				4C92D28F51B446DC9BB2EBC2 /* PoppinsBold.ttf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
@@ -331,8 +328,6 @@
 				4DADF9AB28AC0ECC0062ABBD /* Fonts in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				89655FD092184641AEA6B383 /* Poppins.ttf in Resources */,
-				AD5DD661C1FF43DEBFF592BB /* PoppinsBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -578,6 +573,7 @@
 				DEVELOPMENT_TEAM = 2LQ43DY4HL;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Marvel/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -604,6 +600,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2LQ43DY4HL;
 				INFOPLIST_FILE = Marvel/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
