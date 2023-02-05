@@ -7,7 +7,12 @@ import Header from '../Header';
 import Description from '../Description';
 import Thumbnail from '../Thumbnail';
 
-const ListOfCharacters = ({data, searchName, setSearchName}) => {
+const ListOfCharacters = ({
+  data,
+  searchName,
+  setSearchName,
+  setHandleEndReached,
+}) => {
   const filteredData =
     searchName.length != 0
       ? data.filter(character => {
@@ -40,11 +45,11 @@ const ListOfCharacters = ({data, searchName, setSearchName}) => {
         keyExtractor={item => item.id}
         renderItem={item => <Content info={item} />}
         ItemSeparatorComponent={ItemSeparatorView}
-        onEndReachedThreshold={0.1}
+        onEndReachedThreshold={1}
+        onEndReached={setHandleEndReached}
       />
     );
   };
-
   return (
     <View style={styles.container}>
       <SafeAreaView style={{flex: 1}}>
