@@ -1,20 +1,53 @@
-import React from 'react';
-import {View, Text, SafeAreaView, FlatList} from 'react-native';
+import React, {useState, useEffect, useMemo, useRef} from 'react';
+import {View, Text, SafeAreaView, FlatList, Alert} from 'react-native';
 import styles from './styles';
 import ItemSeparatorView from '../ItemSeparatorView';
 import Themes from '../../../assets/Themes';
 import Header from '../Header';
 import Description from '../Description';
 import Thumbnail from '../Thumbnail';
+import api from '../../../services/api';
+import {TS, KEYS, HASH} from '../../../services/validation';
 
-const ListOfCharacters = ({
-  data,
-  searchName,
-  setSearchName,
-  setHandleEndReached,
-}) => {
+const ListOfCharacters = ({setLoading}) => {
+  const [data, setData] = useState([]);
+  const [searchName, setSearchName] = useState('');
+  const [offset, setOffset] = useState(0);
+  const limit = 10;
+  console.log('renderizou CharactersScreen');
+
+  console.log(offset);
+  async function loadCharacters() {
+    if (offset === 0) {
+      setData([]);
+    }
+
+    const characters = `/characters?ts=${TS}&apikey=${
+      KEYS.PUBLIC
+    }&hash=${HASH}&offset=${offset}&${
+      searchName ? `&nameStartsWith=${searchName}` : ''
+    }`;
+    try {
+      const response = await api.get(characters);
+      const items = response.data.data.results;
+
+      if (data) {
+        const current = items;
+        setData(prev => [...prev, ...current]);
+        setOffset(prev => prev + limit);
+      }
+    } catch (e) {
+      Alert.alert('Erro ao requisitar dados');
+    } finally {
+      setLoading(false);
+    }
+  }
+  useEffect(() => {
+    loadCharacters();
+  }, []);
+
   const filteredData =
-    searchName.length != 0
+    searchName != ''
       ? data.filter(character => {
           return character.name.includes(searchName);
         })
@@ -46,7 +79,7 @@ const ListOfCharacters = ({
         renderItem={item => <Content info={item} />}
         ItemSeparatorComponent={ItemSeparatorView}
         onEndReachedThreshold={1}
-        onEndReached={setHandleEndReached}
+        onEndReached={loadCharacters}
       />
     );
   };
