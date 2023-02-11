@@ -3,7 +3,7 @@ import React from 'react';
 import {View} from 'react-native';
 import AnimatedView from '../../Animated';
 import Button from '../../Animated/Button';
-import SearchBar from '../SearchBar';
+import SearchBar from './SearchBar';
 import styles from './styles';
 const Header = ({setSearchName}) => {
   const navigation = useNavigation();
