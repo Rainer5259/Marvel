@@ -30,17 +30,12 @@ const ListOfCharacters = ({filteredCharacters, searchName, loadMoreItems}) => {
     <View style={styles.container}>
       <SafeAreaView style={{flex: 1}}>
         <FlatList
-          ref={scrollPosition}
           ListHeaderComponent={title}
-          onScroll={e => {
-            scrollPosition.current = e.nativeEvent.contentOffset.y;
-          }}
           data={filteredCharacters}
           key={item => item.id}
-          keyExtractor={item => item.id}
           renderItem={item => <Content info={item} />}
           ItemSeparatorComponent={ItemSeparatorView}
-          onEndReachedThreshold={1}
+          onEndReachedThreshold={0.8}
           onEndReached={loadMoreItems}
         />
       </SafeAreaView>
