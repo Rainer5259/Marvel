@@ -5,12 +5,13 @@ import {
   MARVEL_API_KEYS,
   MARVEL_HASH,
 } from '../../src/services/validation';
+
 const api = axios.create({
   baseURL: 'https://gateway.marvel.com/v1/public/',
 });
 
-async function getCharacters(offset, searchName) {
-  const characters = `/characters?ts=${TIMESTAMP}&apikey=${
+async function getMarvelAPI(contentName, offset, searchName) {
+  const characters = `/${contentName}?ts=${TIMESTAMP}&apikey=${
     MARVEL_API_KEYS.PUBLIC
   }&hash=${MARVEL_HASH}&offset=${offset}&limit=10&${
     searchName ? `&nameStartsWith=${searchName}` : ''
@@ -24,4 +25,4 @@ async function getCharacters(offset, searchName) {
   }
 }
 
-export {getCharacters};
+export {getMarvelAPI};

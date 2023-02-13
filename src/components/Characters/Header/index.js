@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {View} from 'react-native';
+import {SafeAreaView, View} from 'react-native';
 import AnimatedView from '../../Animated';
 import Button from '../../Animated/Button';
 import SearchBar from './SearchBar';

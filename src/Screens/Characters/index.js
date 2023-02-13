@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {Alert} from 'react-native';
 import LoadingData from '../../../src/components/LoadingData';
 import Characters from '../../components/Characters';
-import {getCharacters} from '../../services/api';
+import {getMarvelAPI} from '../../services/api';
 const CharactersScreen = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -11,9 +11,12 @@ const CharactersScreen = () => {
   const [searchName, setSearchName] = useState('');
 
   useEffect(() => {
-    getCharacters(offset, searchName)
+    getMarvelAPI('characters', offset, searchName)
       .then(characters => {
-        setData(prev => [...prev, ...characters]);
+        setData(prev =>
+          characters.map(item => ({...prev, ...item, isVisible: false})),
+        );
+        // prev => [...prev, ...characters]
       })
       .finally(() => setLoading(false));
   }, [offset]);
