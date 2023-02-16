@@ -1,6 +1,5 @@
 import {debounce} from 'lodash';
-import React, {useEffect, useState} from 'react';
-import {Alert} from 'react-native';
+import React, {useEffect, useState, useMemo} from 'react';
 import LoadingData from '../../../src/components/LoadingData';
 import Characters from '../../components/Characters';
 import {getMarvelAPI} from '../../services/api';
@@ -11,17 +10,19 @@ const CharactersScreen = () => {
   const [searchName, setSearchName] = useState('');
 
   useEffect(() => {
-    getMarvelAPI('characters', offset, searchName)
-      .then(characters => {
-        setData(prev =>
-          characters.map(item => ({...prev, ...item, isVisible: false})),
-        );
-        // prev => [...prev, ...characters]
-      })
-      .finally(() => setLoading(false));
+    const callAPI = () => {
+      getMarvelAPI('characters', offset, searchName)
+        .then(characters => {
+          setData(prev => [...prev, ...characters]);
+        })
+        .finally(() => setLoading(false));
+    };
+    callAPI();
   }, [offset]);
+  console.log(loading);
+  const loadMoreItems = debounce(() => setOffset(prev => prev + 10), 100);
 
-  const loadMoreItems = () => setOffset(prev => prev + 10);
+  const debouncedSearchName = useMemo(() => debounce(setSearchName, 500), []);
 
   return loading ? (
     <LoadingData />

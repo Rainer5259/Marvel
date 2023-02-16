@@ -4,22 +4,15 @@ import styles from './styles';
 
 const Description = ({info}) => {
   const [isHidden, setIsHidden] = useState(true);
-
+  const {item} = info;
   const description = isHidden
-    ? info.item.description.substring(0, 35)
-    : info.item.description;
+    ? item.description.substring(0, 35)
+    : item.description;
 
-  useEffect(() => {
-    const createHide = async () => {
-      info.item.hide = true;
-    };
-    createHide();
-  }, []);
-
-  let hide = info.item.hide;
+  let hide = item.hide;
 
   const state = () => {
-    let hidden = isHidden ? (hide = false) : (hide = true);
+    let hidden = isHidden ? false : true;
     return setIsHidden(hidden);
   };
 

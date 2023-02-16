@@ -2,13 +2,16 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   content: {
-    top: '50%',
+    top: '40%',
     flex: 0.5,
-    backgroundColor: '#b2E2E2',
+    backgroundColor: '#ED1D24',
     padding: 20,
     justifyContent: 'space-evenly',
-    borderTopStartRadius: 15,
-    borderTopEndRadius: 15,
+    borderRadius: 15,
+    width: '90%',
+    alignSelf: 'center',
+    borderWidth: 0.8,
+    shadowOpacity: 1,
   },
   title: {
     alignSelf: 'center',
@@ -19,17 +22,18 @@ const styles = StyleSheet.create({
   subTitle: {
     alignSelf: 'center',
     color: 'black',
-    fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 18,
     textAlign: 'justify',
+    fontFamily: 'Noteworthy-Bold',
   },
   primaryText: {
+    fontFamily: 'Optima-Bold',
     color: 'black',
-    fontSize: 16,
+    fontSize: 14,
     padding: 2,
   },
   descriptionContainer: {
-    backgroundColor: '#B2A3E2',
+    backgroundColor: '#BD1D24',
     borderWidth: 1,
     borderRadius: 10,
     margin: '2%',
@@ -39,7 +43,11 @@ const styles = StyleSheet.create({
   closeModal: {
     fontSize: 26,
     right: '10%',
-    // backgroundColor: 'red',
+  },
+  thereAreNoStory: {
+    fontFamily: 'Noteworthy-Bold',
+    fontSize: 22,
+    alignSelf: 'center',
   },
 });
 export default styles;

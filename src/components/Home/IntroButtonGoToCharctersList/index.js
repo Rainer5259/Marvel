@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import Animated, {
   useSharedValue,
@@ -48,7 +48,6 @@ const IntroButtonGoToCharctersList = () => {
   }, []);
   const slideIcon = () => {
     breathingAnimation.value = 220;
-    console.log('Estou aqui');
     translateX.value = withTiming(350, {
       duration: 10000,
     });

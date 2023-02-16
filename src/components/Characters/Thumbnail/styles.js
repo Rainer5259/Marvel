@@ -5,9 +5,8 @@ const styles = StyleSheet.create({
     top: '2%',
     height: 320,
     resizeMode: 'stretch',
-    borderRadius: 10,
+    borderRadius: 12,
     marginBottom: '10%',
-    shadowOpacity: 10,
   },
 });
 export default styles;

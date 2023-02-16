@@ -4,9 +4,10 @@ import AnimatedView from '../../Animated';
 import styles from './styles';
 
 const Thumbnail = ({info, position}) => {
+  const {item} = info;
   const img = {
-    path: info.item.thumbnail.path,
-    extension: info.item.thumbnail.extension,
+    path: item.thumbnail.path,
+    extension: item.thumbnail.extension,
   };
   const thumbnail = `${img.path.replace(/http/i, 'https')}.${img.extension}`;
 
