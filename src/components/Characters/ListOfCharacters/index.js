@@ -12,8 +12,9 @@ const ListOfCharacters = ({filteredCharacters, searchName, loadMoreItems}) => {
   const Content = ({info}) => {
     const {item} = info;
     const [isVisible, setIsVisible] = useState(false);
+
     return (
-      <View style={styles.content}>
+      <View style={[styles.content, isVisible && {opacity: 0.6}]}>
         <Text style={Themes.primaryText}>{item.name}</Text>
         <TouchableOpacity
           onPress={() => setIsVisible(true)}

@@ -1,5 +1,5 @@
 import {debounce} from 'lodash';
-import React, {useEffect, useState, useMemo} from 'react';
+import React, {useEffect, useState} from 'react';
 import LoadingData from '../../../src/components/LoadingData';
 import Characters from '../../components/Characters';
 import {getMarvelAPI} from '../../services/api';
@@ -19,10 +19,9 @@ const CharactersScreen = () => {
     };
     callAPI();
   }, [offset]);
-  console.log(loading);
   const loadMoreItems = debounce(() => setOffset(prev => prev + 10), 100);
 
-  const debouncedSearchName = useMemo(() => debounce(setSearchName, 500), []);
+  const searchCharacter = debounce(setSearchName, 1500);
 
   return loading ? (
     <LoadingData />
@@ -31,7 +30,7 @@ const CharactersScreen = () => {
       data={data}
       loadMoreItems={loadMoreItems}
       searchName={searchName}
-      setSearchName={setSearchName}
+      setSearchName={searchCharacter}
     />
   );
 };
