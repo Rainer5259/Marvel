@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
   },
   welcome: {
     color: Themes.colors.red,
-    // fontFamily: 'Poppins-Bold',
     fontSize: 40,
 
     left: '5%',

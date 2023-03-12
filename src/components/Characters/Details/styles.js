@@ -13,6 +13,15 @@ const styles = StyleSheet.create({
     borderWidth: 0.8,
     shadowOpacity: 1,
   },
+  descriptionContainer: {
+    backgroundColor: '#BD1D24',
+
+    borderWidth: 1,
+    borderRadius: 10,
+    margin: '4%',
+    maxHeight: '30%',
+    paddingHorizontal: 10,
+  },
   title: {
     alignSelf: 'center',
     color: 'black',
@@ -32,18 +41,16 @@ const styles = StyleSheet.create({
     fontSize: 14,
     padding: 2,
   },
-  descriptionContainer: {
-    backgroundColor: '#BD1D24',
-    borderWidth: 1,
-    borderRadius: 10,
-    margin: '2%',
-    maxHeight: '30%',
-    paddingHorizontal: 10,
+  header: {
+    alignSelf: 'center',
+    flexDirection: 'row',
+    marginBottom: '2%',
   },
   closeModal: {
     fontSize: 26,
     right: '10%',
   },
+
   thereAreNoStory: {
     fontFamily: 'Noteworthy-Bold',
     fontSize: 22,

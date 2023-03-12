@@ -4521,9 +4521,9 @@ html-escaper@^2.0.0:
   integrity sha512-H2iMtd0I4Mt5eYiapRdIDjp+XzelXQ0tFE4JS7YFwFevXXMmOp9myNrUvCg0D6ws8iqkRPBfKHgbwig1SmlLfg==
 
 http-cache-semantics@^4.0.0:
-  version "4.1.0"
-  resolved "https://registry.npmjs.org/http-cache-semantics/-/http-cache-semantics-4.1.0.tgz"
-  integrity sha512-carPklcUh7ROWRK7Cv27RPtdhYhUsela/ue5/jKzjegVvXDqM2ILE9Q2BGn9JZJh1g87cp56su/FgQSzcWS8cQ==
+  version "4.1.1"
+  resolved "https://registry.npmjs.org/http-cache-semantics/-/http-cache-semantics-4.1.1.tgz"
+  integrity sha512-er295DKPVsV82j5kw1Gjt+ADA/XYHsajl82cGNQG2eyoPkvgUhX+nDIyelzhIWbbsXP39EHcI6l5tYs2FYqYXQ==
 
 http-errors@2.0.0:
   version "2.0.0"
@@ -6894,24 +6894,24 @@ react-devtools-core@4.24.0:
     shell-quote "^1.6.1"
     ws "^7"
 
-react-devtools-core@4.27.1:
-  version "4.27.1"
-  resolved "https://registry.npmjs.org/react-devtools-core/-/react-devtools-core-4.27.1.tgz"
-  integrity sha512-qXhcxxDWiFmFAOq48jts9YQYe1+wVoUXzJTlY4jbaATzyio6dd6CUGu3dXBhREeVgpZ+y4kg6vFJzIOZh6vY2w==
+react-devtools-core@4.27.2:
+  version "4.27.2"
+  resolved "https://registry.npmjs.org/react-devtools-core/-/react-devtools-core-4.27.2.tgz"
+  integrity sha512-8SzmIkpO87alD7Xr6gWIEa1jHkMjawOZ+6egjazlnjB4UUcbnzGDf/vBJ4BzGuWWEM+pzrxuzsPpcMqlQkYK2g==
   dependencies:
     shell-quote "^1.6.1"
     ws "^7"
 
 react-devtools@^4.27.1:
-  version "4.27.1"
-  resolved "https://registry.npmjs.org/react-devtools/-/react-devtools-4.27.1.tgz"
-  integrity sha512-v+KnH7VUPQXyl08p8dn91RR3sEb6bM0XhzJjkbNfeEaf0ziESJFg1Ms9l3jBwhgytXmEjIKM5LZOVg9Ov/2LJg==
+  version "4.27.2"
+  resolved "https://registry.npmjs.org/react-devtools/-/react-devtools-4.27.2.tgz"
+  integrity sha512-qfXhvTJhYEZm/RJzTE3uyKRDRk6Tx5ijBuU4f0STHaRol/LcCFDj293w3IWGkOUGv4OvLAPpT5mAH5p7XuueUQ==
   dependencies:
     cross-spawn "^5.0.1"
     electron "^11.1.0"
     ip "^1.1.4"
     minimist "^1.2.3"
-    react-devtools-core "4.27.1"
+    react-devtools-core "4.27.2"
     update-notifier "^2.1.0"
 
 react-freeze@^1.0.0:

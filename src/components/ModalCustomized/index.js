@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
-import {Modal, View, Text, TouchableOpacity, Alert} from 'react-native';
+import React from 'react';
+import {Modal, View} from 'react-native';
 import styles from './styles';
 
-const ModalCustomized = ({children, isVisible, setIsVisible}) => {
+const ModalCustomized = ({children, style}) => {
   return (
-    <Modal animationType="slide" visible={isVisible} transparent={true}>
-      {children}
+    <Modal animationType="slide" transparent={true}>
+      <View style={[styles.content, style]}>{children}</View>
     </Modal>
   );
 };

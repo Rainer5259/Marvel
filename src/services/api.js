@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {Alert} from 'react-native';
+import {Alert, View, Text} from 'react-native';
 import {
   TIMESTAMP,
   MARVEL_API_KEYS,
@@ -10,18 +10,20 @@ const api = axios.create({
   baseURL: 'https://gateway.marvel.com/v1/public/',
 });
 
-async function getMarvelAPI(contentName, offset, searchName) {
-  const characters = `/${contentName}?ts=${TIMESTAMP}&apikey=${
-    MARVEL_API_KEYS.PUBLIC
-  }&hash=${MARVEL_HASH}&offset=${offset}&limit=10&${
-    searchName ? `&nameStartsWith=${searchName}` : ''
-  }`;
+async function getMarvelAPI(searchBy, offset, searchName) {
+  const auth = `&ts=${TIMESTAMP}&apikey=${MARVEL_API_KEYS.PUBLIC}&hash=${MARVEL_HASH}`;
+
+  const nameStartsWith =
+    !searchName == '' ? `nameStartsWith=${searchName}` : '';
+
+  const characters = `/${searchBy}?${nameStartsWith}&limit=10&offset=${offset}${auth}`;
+
+  const response = await api.get(characters);
   try {
-    const response = await api.get(characters);
-    const {results} = response.data.data;
-    return results;
+    return response;
   } catch (e) {
-    Alert.alert('Erro ao requisitar dados');
+    console.log('Caiu no Catch do AXIOS');
+    return response.status;
   }
 }
 

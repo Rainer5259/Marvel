@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import ModalCustomized from '../../ModalCustomized';
@@ -46,16 +46,14 @@ const Details = ({info, isVisible, setIsVisible}) => {
   };
   return (
     isVisible && (
-      <ModalCustomized>
-        <View style={styles.content}>
-          <View style={{alignSelf: 'center', flexDirection: 'row'}}>
-            <TouchableOpacity onPress={() => setIsVisible(prev => !prev)}>
-              <Icon name="chevron-down" style={styles.closeModal} />
-            </TouchableOpacity>
-            <Text style={styles.title}>{item.name} - Had participations</Text>
-          </View>
-          <Content />
+      <ModalCustomized setIsVisible={setIsVisible}>
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => setIsVisible(prev => !prev)}>
+            <Icon name="chevron-down" style={styles.closeModal} />
+          </TouchableOpacity>
+          <Text style={styles.title}>{item.name}</Text>
         </View>
+        <Content />
       </ModalCustomized>
     )
   );

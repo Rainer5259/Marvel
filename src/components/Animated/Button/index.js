@@ -43,8 +43,8 @@ const Button = ({
       (opacityCurrent.value = withTiming(1, {duration: 2000}, () => {
         showBreathingAnim &&
           (sizeCurrent.value = withRepeat(
-            withTiming(size * 2, {
-              duration: 2000,
+            withTiming(size * 1.5, {
+              duration: 1000,
             }),
             Infinity,
             true,

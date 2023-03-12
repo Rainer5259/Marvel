@@ -5,7 +5,7 @@ import AnimatedView from '../../Animated';
 import Button from '../../Animated/Button';
 import SearchBar from './SearchBar';
 import styles from './styles';
-const Header = ({setSearchName}) => {
+const Header = ({setSearchName, clearSearch, searchName}) => {
   const navigation = useNavigation();
   const goBack = () => navigation.navigate('Home');
   return (
@@ -19,7 +19,11 @@ const Header = ({setSearchName}) => {
           onPress={goBack}
         />
       </AnimatedView>
-      <SearchBar setSearchName={setSearchName} />
+      <SearchBar
+        setSearchName={setSearchName}
+        searchName={searchName}
+        clearSearch={clearSearch}
+      />
     </View>
   );
 };
